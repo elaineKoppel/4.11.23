@@ -1,31 +1,16 @@
-const Sequelize = require('sequelize');
-const connection_string = process.env.DATABASE_URL || 'postgres://localhost/mydb';
-const conn = new Sequelize(connection_string)
+const {conn, Thing, Person} = require('./db')  
+// const conn = db.conn
+// const Thing = db.Thing
+// const Person = db.Person
 
-const Thing = conn.define('thing', {
-    name: {
-        type: Sequelize.STRING,
-        unique: true,   
-    },
-    stars: {
-        type: Sequelize.INTEGER,
-    }
-});
 
-const Person = conn.define('person', {
-    name: {
-        type: Sequelize.STRING,
-    }
-})
 
 const express = require('express');
 const app = express();
 
 app.get('/api/things', async(req, res, next) => {
     try {
-        const things = await Thing.findAll({
-        
-        })
+        const things = await Thing.findAll({})
         res.send(things)
     } 
     catch(ex) {
